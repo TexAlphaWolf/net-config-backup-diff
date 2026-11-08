@@ -78,7 +78,9 @@ def _http(dev: Device, env: Mapping[str, str]) -> str:
         with urllib.request.urlopen(req, timeout=dev.timeout) as resp:
             data = resp.read(dev.max_bytes + 1)
     except urllib.error.HTTPError as exc:
-        raise FetchError(f"http {exc.code}") from None
+        code = exc.code
+        exc.close()  # an HTTPError holds the response: leaving it open is a resource leak (a warning on Python 3.14)
+        raise FetchError(f"http {code}") from None
     except (urllib.error.URLError, TimeoutError, OSError) as exc:
         reason = getattr(exc, "reason", exc)
         raise FetchError(f"request failed: {type(reason).__name__}") from None
