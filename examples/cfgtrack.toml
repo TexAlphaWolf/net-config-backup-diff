@@ -1,0 +1,64 @@
+# A fuller example. Passwords and tokens are never written here: *_env names an environment variable.
+
+[store]
+path = "backups"            # a Git repository (keep it private)
+key_file = "cfgtrack.key"   # secret for the tags that replace passwords; keep it out of Git
+workers = 8
+shrink_guard = 0.5
+stale_after = "2d"
+
+# Cisco IOS over SSH, one command per session. The fingerprint comes from: cfgtrack hostkey 192.0.2.10
+[[device]]
+name = "core-sw1"
+profile = "cisco_ios"
+fetch = "ssh"
+host = "192.0.2.10"
+username = "backup"
+password_env = "CORE_SW1_PASSWORD"
+host_key = "SHA256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+
+# A device that refuses one-shot commands: an interactive session, paging switched off first.
+[[device]]
+name = "old-sw2"
+profile = "cisco_ios"
+fetch = "ssh"
+mode = "shell"
+before = ["terminal length 0"]
+host = "192.0.2.11"
+username = "backup"
+password_env = "OLD_SW2_PASSWORD"
+known_hosts = "~/.ssh/known_hosts"
+
+# Junos with a key file; two extra rules for lines this firmware prints differently on every run.
+[[device]]
+name = "edge-mx"
+profile = "junos"
+fetch = "ssh"
+host = "192.0.2.12"
+username = "backup"
+key_file = "~/.ssh/backup_ed25519"
+host_key = "SHA256:BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+ignore = ['^\s*## Last changed', '^\s*system-uptime ']
+
+# MikroTik RouterOS through the system ssh client (any program that prints the configuration will do)
+[[device]]
+name = "ap-mikrotik"
+profile = "routeros"
+fetch = "command"
+argv = ["ssh", "-o", "BatchMode=yes", "backup@192.0.2.13", "/export"]
+
+# A web interface that returns its configuration
+[[device]]
+name = "lab-ap"
+profile = "generic"
+fetch = "http"
+url = "https://192.0.2.30/api/config"
+token_env = "LAB_AP_TOKEN"
+redact = ['license-key=(?P<secret>\S+)']
+
+# A file another job drops (a NAS export, a controller backup)
+[[device]]
+name = "nas"
+profile = "generic"
+fetch = "file"
+path = "/srv/exports/nas.conf"

@@ -1,0 +1,190 @@
+{
+  "environment": {
+    "python": "3.13.16",
+    "system": "Linux x86_64",
+    "quick": false
+  },
+  "fetch": {
+    "config_lines": 202,
+    "kinds": {
+      "ssh exec": {
+        "fetches": 40,
+        "identical": 40,
+        "median_ms": 147.14,
+        "p95_ms": 151.35
+      },
+      "ssh shell": {
+        "fetches": 40,
+        "identical": 40,
+        "median_ms": 964.91,
+        "p95_ms": 1006.28
+      },
+      "http": {
+        "fetches": 40,
+        "identical": 40,
+        "median_ms": 0.85,
+        "p95_ms": 2.1
+      },
+      "command": {
+        "fetches": 40,
+        "identical": 40,
+        "median_ms": 11.14,
+        "p95_ms": 12.42
+      },
+      "file": {
+        "fetches": 40,
+        "identical": 40,
+        "median_ms": 0.02,
+        "p95_ms": 0.09
+      }
+    }
+  },
+  "pipeline": {
+    "devices": 40,
+    "days": 60,
+    "rounds": 2400,
+    "p_change": 0.12,
+    "p_fault": 0.03,
+    "change_events": 271,
+    "detected": 271,
+    "missed": 0,
+    "quiet_rounds": 2022,
+    "false_commits": 0,
+    "exact_reports": 232,
+    "exact_reports_possible": 232,
+    "reorders": 39,
+    "reorders_reported": 39,
+    "by_kind": {
+      "description": {
+        "events": 54,
+        "detected": 54,
+        "exact": 54
+      },
+      "ip": {
+        "events": 42,
+        "detected": 42,
+        "exact": 42
+      },
+      "shutdown": {
+        "events": 52,
+        "detected": 52,
+        "exact": 52
+      },
+      "acl_add": {
+        "events": 47,
+        "detected": 47,
+        "exact": 47
+      },
+      "acl_remove": {
+        "events": 51,
+        "detected": 51,
+        "exact": 51
+      },
+      "vlan_add": {
+        "events": 53,
+        "detected": 53,
+        "exact": 53
+      },
+      "user_secret": {
+        "events": 51,
+        "detected": 51,
+        "exact": 51
+      },
+      "snmp": {
+        "events": 43,
+        "detected": 43,
+        "exact": 43
+      },
+      "route": {
+        "events": 44,
+        "detected": 44,
+        "exact": 44
+      },
+      "acl_swap": {
+        "events": 39,
+        "detected": 39,
+        "exact": 39
+      }
+    },
+    "faults": 67,
+    "faults_blocked": 67,
+    "faults_by_kind": {
+      "truncated": {
+        "injected": 14,
+        "blocked": 14
+      },
+      "empty": {
+        "injected": 14,
+        "blocked": 14
+      },
+      "error": {
+        "injected": 14,
+        "blocked": 14
+      },
+      "denied": {
+        "injected": 11,
+        "blocked": 11
+      },
+      "wrong_context": {
+        "injected": 14,
+        "blocked": 14
+      }
+    },
+    "naive_mean_changed_lines_on_a_quiet_day": 8.0,
+    "commits": {
+      "cfgtrack": 312,
+      "naive": 2401
+    },
+    "repo_bytes": {
+      "cfgtrack": 211968,
+      "naive": 1218560
+    },
+    "secrets": {
+      "distinct": 374,
+      "leaked_cfgtrack": 0,
+      "leaked_naive": 374
+    },
+    "stored_files_that_would_be_changed_by_the_rules": 0,
+    "problems": [],
+    "run_seconds_median": 0.179
+  },
+  "noise": {
+    "days_without_the_rule": 20,
+    "commits_without_the_rule": 20,
+    "patterns_suggested": 2,
+    "patterns": [
+      "^\\s*system\\-uptime \\d+ seconds\\s*$",
+      "^\\s*last\\-sync: \\d+\\-\\d+\\-\\d+ \\d+:\\d+:\\d+\\s*$"
+    ],
+    "quiet_days_with_the_rule": 18,
+    "commits_with_the_rule": 0,
+    "real_change_still_found": true,
+    "suggestion_hides_a_real_line": false
+  },
+  "cost": {
+    "1000": {
+      "lines": 1160,
+      "normalize_ms": 3.7,
+      "diff_20_changes_ms": 2.4,
+      "changes_reported": 40
+    },
+    "10000": {
+      "lines": 10158,
+      "normalize_ms": 27.5,
+      "diff_20_changes_ms": 24.2,
+      "changes_reported": 40
+    },
+    "50000": {
+      "lines": 50160,
+      "normalize_ms": 140.4,
+      "diff_20_changes_ms": 160.5,
+      "changes_reported": 40
+    },
+    "backup_pass": {
+      "devices": 100,
+      "first_pass_s": 1.53,
+      "quiet_pass_s": 0.25,
+      "ms_per_device_quiet": 2.5
+    }
+  }
+}
